@@ -1,0 +1,11 @@
+[package]
+name = "rust-z3-examples"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "meeting"
+path = "src/meeting.rs"
+
+[dependencies]
+z3 = {version="0.12", features = ["static-link-z3"]}
