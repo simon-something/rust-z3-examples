@@ -8,4 +8,5 @@ name = "meeting"
 path = "src/meeting.rs"
 
 [dependencies]
+anyhow = "1.0.94"
 z3 = {version="0.12", features = ["static-link-z3"]}

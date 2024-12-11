@@ -8,6 +8,10 @@ fn main() {
     	3. At least one of Alice or Charlie must attend the meeting."
     );
 
+    solve();
+}
+
+fn solve() -> Option<Vec<bool>> {
     let cfg = Config::new();
     let ctx = Context::new(&cfg);
     let solver = Solver::new(&ctx);
@@ -30,11 +34,35 @@ fn main() {
         println!("---- SAT ----");
 
         let model = solver.get_model().unwrap();
+        let value = vec![
+            model.eval(&alice, false).unwrap().as_bool().unwrap(),
+            model.eval(&bob, false).unwrap().as_bool().unwrap(),
+            model.eval(&charlie, false).unwrap().as_bool().unwrap(),
+        ];
+
         println!("Model:");
-        println!("Alice: {}", model.eval(&alice, false).unwrap());
-        println!("Bob: {}", model.eval(&bob, false).unwrap());
-        println!("Charlie: {}", model.eval(&charlie, false).unwrap());
+        println!("Alice: {}", value[0]);
+        println!("Bob: {}", value[1]);
+        println!("Charlie: {}", value[2]);
+
+        Some(value)
     } else {
         println!("---- UNSAT ----");
+        None
     }
+}
+
+#[cfg(test)]
+// Possible solution: Alice and Bob attend the meeting, Charlie does not attend.
+// True - True - False
+#[test]
+fn test_meeting() {
+    let values = solve();
+
+    assert!(values.is_some());
+    let values = values.unwrap();
+
+    assert!(values[0]);
+    assert!(values[1]);
+    assert!(!values[2]);
 }
