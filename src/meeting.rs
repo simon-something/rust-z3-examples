@@ -2,10 +2,10 @@ use z3::{ast, Config, Context, SatResult, Solver};
 
 fn main() {
     println!(
-        "Problem 1:\n
-    1.	If Alice attends the meeting, Bob must attend.\n
-	2.	If Bob attends the meeting, Charlie cannot attend.\n
-	3.	At least one of Alice or Charlie must attend the meeting.\n"
+        "Problem 1:
+        1. If Alice attends the meeting, Bob must attend.
+    	2. If Bob attends the meeting, Charlie cannot attend.
+    	3. At least one of Alice or Charlie must attend the meeting."
     );
 
     let cfg = Config::new();
@@ -30,17 +30,10 @@ fn main() {
         println!("---- SAT ----");
 
         let model = solver.get_model().unwrap();
-
         println!("Model:");
-        format!(
-            "
-            Alice: {},
-            Bob: {},
-            Charlie: {}",
-            model.eval(&alice, false).unwrap(),
-            model.eval(&bob, false).unwrap(),
-            model.eval(&charlie, false).unwrap(),
-        );
+        println!("Alice: {}", model.eval(&alice, false).unwrap());
+        println!("Bob: {}", model.eval(&bob, false).unwrap());
+        println!("Charlie: {}", model.eval(&charlie, false).unwrap());
     } else {
         println!("---- UNSAT ----");
     }
