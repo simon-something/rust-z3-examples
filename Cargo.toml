@@ -5,7 +5,11 @@ edition = "2021"
 
 [[bin]]
 name = "meeting"
-path = "src/meeting.rs"
+path = "src/prob1.rs"
+
+[[bin]]
+name = "meeting2"
+path = "src/prob2.rs"
 
 [dependencies]
 anyhow = "1.0.94"
