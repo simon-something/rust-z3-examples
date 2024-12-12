@@ -3,6 +3,11 @@ use z3::{
     Config, Context, SatResult, Solver,
 };
 
+struct Solution {
+    am: bool,
+    room: i64,
+}
+
 fn main() {
     println!(
         "You are organizing a schedule for four meetings—M1, M2, M3, and M4—over two timeslots: Morning (AM) and Afternoon (PM).
@@ -25,7 +30,7 @@ fn main() {
     solve();
 }
 
-fn solve() -> Option<Vec<bool>> {
+fn solve() -> Option<Vec<Solution>> {
     let cfg = Config::new();
     let ctx = Context::new(&cfg);
     let solver = Solver::new(&ctx);
@@ -95,14 +100,14 @@ fn solve() -> Option<Vec<bool>> {
         println!("---- SAT ----");
 
         let model = solver.get_model().unwrap();
-        let value_am = vec![
+        let value_am = [
             model.eval(&m1_am, false).unwrap().as_bool().unwrap(),
             model.eval(&m2_am, false).unwrap().as_bool().unwrap(),
             model.eval(&m3_am, false).unwrap().as_bool().unwrap(),
             model.eval(&m4_am, false).unwrap().as_bool().unwrap(),
         ];
 
-        let value_room = vec![
+        let value_room = [
             model.eval(&m1_room, false).unwrap(),
             model.eval(&m2_room, false).unwrap(),
             model.eval(&m3_room, false).unwrap(),
@@ -115,7 +120,16 @@ fn solve() -> Option<Vec<bool>> {
         println!("M3: AM: {}, Room: {}", value_am[2], value_room[2]);
         println!("M4: AM: {}, Room: {}", value_am[3], value_room[3]);
 
-        Some(vec![])
+        let mut result: Vec<Solution> = Vec::new();
+
+        for i in 0..4 {
+            result.push(Solution {
+                am: value_am[i],
+                room: value_room[i].as_i64().unwrap(),
+            });
+        }
+
+        Some(result)
     } else {
         println!("---- UNSAT ----");
         None
@@ -124,4 +138,49 @@ fn solve() -> Option<Vec<bool>> {
 
 #[cfg(test)]
 #[test]
-fn test_prob2() {}
+fn test_meeting2() {
+    let solution = solve();
+
+    assert!(solution.is_some());
+
+    // All unique
+    for i in 0..4 {
+        for j in 0..4 {
+            if i != j {
+                assert!(
+                    solution.as_ref().unwrap()[i].am != solution.as_ref().unwrap()[j].am
+                        || solution.as_ref().unwrap()[i].room != solution.as_ref().unwrap()[j].room
+                );
+            }
+        }
+    }
+
+    // 1.	M1 and M2 cannot be held in the same timeslot.
+    assert!(solution.as_ref().unwrap()[0].am != solution.as_ref().unwrap()[1].am);
+    // 2.	If M3 is scheduled in the morning, then M4 cannot be held in R1 or R3.
+    assert!(solution.as_ref().unwrap()[2].am && solution.as_ref().unwrap()[3].room == 2);
+    // 3.	If M2 is scheduled in R2, then M1 must not be in the afternoon.
+    assert!(solution.as_ref().unwrap()[1].room != 2 || solution.as_ref().unwrap()[0].am);
+    // 4.	At least two of the meetings (out of M1, M2, M3, M4) must be in the afternoon timeslot.
+    let mut count = 0;
+    for i in 0..4 {
+        if solution.as_ref().unwrap()[i].am {
+            count += 1;
+        }
+    }
+    assert!(count >= 2);
+    // 5.	M1 must not be in the same room as M3.
+    assert!(solution.as_ref().unwrap()[0].room != solution.as_ref().unwrap()[2].room);
+    // 6.	M4 must be either in a different timeslot than M1 or, if in the same timeslot, it must be in R2.
+    assert!(
+        solution.as_ref().unwrap()[3].am != solution.as_ref().unwrap()[0].am
+            || solution.as_ref().unwrap()[3].room == 2
+    );
+    // 7.	If M3 is in R3, then M2 cannot be in the same room as M4.
+    assert!(
+        solution.as_ref().unwrap()[2].room != 3
+            || solution.as_ref().unwrap()[1].room != solution.as_ref().unwrap()[3].room
+    );
+    // 8.	If M1 is scheduled in the morning, then M3 must not be scheduled in the afternoon.
+    assert!(solution.as_ref().unwrap()[0].am || solution.as_ref().unwrap()[2].am);
+}
