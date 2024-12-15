@@ -35,9 +35,9 @@ fn solve() -> Option<Vec<bool>> {
 
         let model = solver.get_model().unwrap();
         let value = vec![
-            model.eval(&alice, false).unwrap().as_bool().unwrap(),
-            model.eval(&bob, false).unwrap().as_bool().unwrap(),
-            model.eval(&charlie, false).unwrap().as_bool().unwrap(),
+            model.eval(&alice, true).unwrap().as_bool().unwrap(),
+            model.eval(&bob, true).unwrap().as_bool().unwrap(),
+            model.eval(&charlie, true).unwrap().as_bool().unwrap(),
         ];
 
         println!("Model:");

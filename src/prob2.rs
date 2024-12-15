@@ -101,17 +101,17 @@ fn solve() -> Option<Vec<Solution>> {
 
         let model = solver.get_model().unwrap();
         let value_am = [
-            model.eval(&m1_am, false).unwrap().as_bool().unwrap(),
-            model.eval(&m2_am, false).unwrap().as_bool().unwrap(),
-            model.eval(&m3_am, false).unwrap().as_bool().unwrap(),
-            model.eval(&m4_am, false).unwrap().as_bool().unwrap(),
+            model.eval(&m1_am, true).unwrap().as_bool().unwrap(),
+            model.eval(&m2_am, true).unwrap().as_bool().unwrap(),
+            model.eval(&m3_am, true).unwrap().as_bool().unwrap(),
+            model.eval(&m4_am, true).unwrap().as_bool().unwrap(),
         ];
 
         let value_room = [
-            model.eval(&m1_room, false).unwrap(),
-            model.eval(&m2_room, false).unwrap(),
-            model.eval(&m3_room, false).unwrap(),
-            model.eval(&m4_room, false).unwrap(),
+            model.eval(&m1_room, true).unwrap(),
+            model.eval(&m2_room, true).unwrap(),
+            model.eval(&m3_room, true).unwrap(),
+            model.eval(&m4_room, true).unwrap(),
         ];
 
         let mut result: Vec<Solution> = Vec::new();

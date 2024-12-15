@@ -15,6 +15,10 @@ path = "src/prob2.rs"
 name = "einstein"
 path = "src/prob3.rs"
 
+[[bin]]
+name = "solidity-1"
+path = "src/prob4.rs"
+
 [dependencies]
 anyhow = "1.0.94"
 array-init = "2.1.0"
