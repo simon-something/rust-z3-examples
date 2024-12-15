@@ -11,6 +11,12 @@ path = "src/prob1.rs"
 name = "meeting2"
 path = "src/prob2.rs"
 
+[[bin]]
+name = "einstein"
+path = "src/prob3.rs"
+
 [dependencies]
 anyhow = "1.0.94"
+array-init = "2.1.0"
+duplicate = "2.0.0"
 z3 = {version="0.12", features = ["static-link-z3"]}
