@@ -28,7 +28,7 @@ If I'm correct, this is an arity of 2, meaning polynomial time complexity (2-sat
 Your task is to determine if there is a valid assignment of M1, M2, M3, and M4 to the Morning/Afternoon timeslots and rooms R1, R2, R3 that satisfies all these constraints, and if so, find one such assignment."
 
 ## Problem 3 (Einstein, supposedly)
-This is the 'classic' Einstein riddle (the original attribution to teenage Einstein or not is outside the scope of z3, iic), with the 5 houses in a row.
+This is the 'classic' Einstein riddle (the original attribution to teenage Einstein or not is outside the scope of z3, iic), with the 5 houses in a row. If you never did it pen&paper, it's really fun!q
 "There are five houses, each painted a different color. In each house lives a person with a different nationality.
 These five owners drink a certain type of beverage, smoke a certain brand of cigar, and keep a certain pet.
 No owners have the same pet, smoke the same cigar, or drink the same beverage.
@@ -40,7 +40,7 @@ Here are the clues:
 The Brit lives in the red house
 The Swede keeps dogs as pets
 The Dane drinks tea
-The green house is on the left of the white house
+The green house is on the immediate left of the white house
 The green house’s owner drinks coffee
 The person who smokes Pall Mall rears birds
 The owner of the yellow house smokes Dunhill
@@ -52,3 +52,10 @@ The owner who smokes BlueMaster drinks beer
 The German smokes Prince
 The Norwegian lives next to the blue house
 The man who smokes blend has a neighbor who drinks water"
+
+List of every colors-nationality-beverage-cigar-pet:
+colors: red, green, yellow, blue, white
+nationalities: Brit, Swede, Dane, Norwegian, German
+beverages: tea, coffee, milk, beer, water
+cigars: Pall Mall, Dunhill, Blend, BlueMaster, Prince
+pets: fish, dogs, birds, cats, horses

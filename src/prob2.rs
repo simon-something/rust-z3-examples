@@ -114,12 +114,6 @@ fn solve() -> Option<Vec<Solution>> {
             model.eval(&m4_room, false).unwrap(),
         ];
 
-        println!("Model:");
-        println!("M1: AM: {}, Room: {}", value_am[0], value_room[0]);
-        println!("M2: AM: {}, Room: {}", value_am[1], value_room[1]);
-        println!("M3: AM: {}, Room: {}", value_am[2], value_room[2]);
-        println!("M4: AM: {}, Room: {}", value_am[3], value_room[3]);
-
         let mut result: Vec<Solution> = Vec::new();
 
         for i in 0..4 {
@@ -128,6 +122,12 @@ fn solve() -> Option<Vec<Solution>> {
                 room: value_room[i].as_i64().unwrap(),
             });
         }
+
+        println!("Model:");
+        println!("M1: AM: {}, Room: {}", result[0].am, result[0].room);
+        println!("M2: AM: {}, Room: {}", result[1].am, result[1].room);
+        println!("M3: AM: {}, Room: {}", result[2].am, result[2].room);
+        println!("M4: AM: {}, Room: {}", result[3].am, result[3].room);
 
         Some(result)
     } else {
