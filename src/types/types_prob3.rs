@@ -110,11 +110,12 @@ trait AsI64 {
     fn as_i64(&self) -> i64;
 }
 
-// pretty cool crate tbh
-#[duplicate_item(enum_name; [ Color ]; [ Nationality ]; [ Beverage ]; [ Cigar ]; [ Pet ])]
-impl AsI64 for enum_name {
+impl<T: Copy> AsI64 for T 
+where 
+    T: Into<i64>
+{
     fn as_i64(&self) -> i64 {
-        *self as i64
+        (*self).into()
     }
 }
 

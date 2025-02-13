@@ -72,3 +72,16 @@ function increment() public {
     }
 }
 ```
+
+## Problem 5 (Myself)
+
+```solidity
+/// @z3-verify: x > 0
+function branching(uint256 x) public {
+    if(x == 0) {
+        x++;
+    } else {
+        x--;
+    }
+}
+```
