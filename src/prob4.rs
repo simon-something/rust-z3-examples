@@ -39,7 +39,6 @@ fn solve() -> Option<String> {
     // We'll go first by building a cfg for the function, with a symbolic representation
     // of the counter variable and a single operation (incr).
     // we use bv256 to keep the solidity type
-
     let counter = ast::BV::new_const(&ctx, "counter", 256);
 
     // As we use `unchecked`, we should get type(uint256).max as value satisfying this constraint

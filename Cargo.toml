@@ -19,8 +19,18 @@ path = "src/prob3.rs"
 name = "solidity-1"
 path = "src/prob4.rs"
 
+[[bin]]
+name = "div-by-100"
+path = "src/div-by-100.rs"
+
+
 [dependencies]
 anyhow = "1.0.94"
 array-init = "2.1.0"
-duplicate = "2.0.0"
 z3 = {version="0.12", features = ["static-link-z3"]}
+
+[profile.dev]
+opt-level = 0
+
+[profile.release]
+opt-level = 3
